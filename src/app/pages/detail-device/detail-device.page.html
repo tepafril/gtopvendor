@@ -1,0 +1,134 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Detail Device</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="presentPopover($event)">
+        <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label>Device Info</ion-label>
+      </ion-item-divider>
+
+      <ion-item>
+        <ion-label position="stacked">Product Name</ion-label>
+        <ion-input readonly>{{ product_name }}</ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Customer's Phone</ion-label>
+        <ion-input readonly>{{ customer_phone }}</ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">GPS-ACC-ID</ion-label>
+        <ion-input readonly>{{ gps_acc_id }}</ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">GPS SIM</ion-label>
+        <ion-input readonly>{{ gps_sim }}</ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Vehicle Name</ion-label>
+        <ion-input readonly>{{ vehicle_name }}</ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Plate Number</ion-label>
+        <ion-input readonly>{{ plate_number }}</ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Since</ion-label>
+        <ion-input readonly>{{ created_at }}</ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Expiration</ion-label>
+        <ion-input readonly>{{ expired_at }}</ion-input>
+      </ion-item>
+
+      <ion-item-divider>
+        <ion-label>Permission</ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label>Geolocation</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_geolocation" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>History</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_history" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Engine</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_engine" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Device</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_device" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Ignition</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_ignition" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Parking</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_parking" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Trip</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_trip" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Oil Maintenance</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_oil" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Tire Maintenance</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_tire" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Speed</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_speed" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Summary</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_summary" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Icon</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_icon" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Geofence</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_geofence" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Polygonfence</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_polygonfence" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Group</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_group" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label>Fuel</ion-label>
+        <ion-toggle disabled [(ngModel)]="module_fuel" (click)="togglePermission($event)"></ion-toggle>
+      </ion-item>
+
+    </ion-item-group>
+  </ion-list>
+</ion-content>

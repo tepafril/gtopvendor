@@ -1,0 +1,8 @@
+{
+  "appId": "com.odadcambodia.gtopvendor",
+  "appName": "GTOP Vendor",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}
