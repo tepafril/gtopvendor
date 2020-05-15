@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, LoadingController } from "@ionic/angular";
+import { NavController } from "@ionic/angular";
 import { PopoverController } from '@ionic/angular';
 import { HttpService } from '../../services/http.service';
 import { AlertService } from '../../services/alert.service';
 import { ActivatedRoute } from '@angular/router';
 import { DetailDeviceOptionComponent } from '../../components/detail-device-option/detail-device-option.component';
 
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-detail-device',
@@ -14,15 +15,14 @@ import { DetailDeviceOptionComponent } from '../../components/detail-device-opti
 })
 export class DetailDevicePage implements OnInit {
 
-  loading;
   httpResponse;
 
   itemID;
   product_name;
   customer_phone;
-  gps_acc_id;
+  imei;
   gps_sim;
-  plate_number;
+  plate;
   vehicle_name;
   created_at;
 
@@ -50,17 +50,21 @@ export class DetailDevicePage implements OnInit {
     private navCtrl: NavController,
     private httpService: HttpService,
     private alertService: AlertService,
-    private loadingController: LoadingController,
     private popoverController: PopoverController,
     private activatedRoute: ActivatedRoute,
+    private loadingService: LoadingService,
   ) { }
 
   ngOnInit() {
     this.itemID = this.activatedRoute.snapshot.paramMap.get('id');
+  }
+
+  ionViewWillEnter(){
     this.initQuery();
   }
 
   initQuery(){
+    this.loadingService.present();
     this.httpService.getDevice(this.itemID).subscribe(res => {
       this.httpResponse = res;
       this.httpResponse = JSON.parse(this.httpResponse.items);
@@ -71,12 +75,13 @@ export class DetailDevicePage implements OnInit {
       else{
         this.alertService.presentToast( err.message ,"danger");
       }
+      this.loadingService.dismiss();
     }, ()=>{
       this.product_name = this.httpResponse.product_name;
       this.customer_phone = this.httpResponse.owner.phone;
-      this.gps_acc_id = this.httpResponse.imei;
+      this.imei = this.httpResponse.imei;
       this.gps_sim = this.httpResponse.phone;
-      this.plate_number = this.httpResponse.plate;
+      this.plate = this.httpResponse.plate;
       this.vehicle_name = this.httpResponse.name;
       this.created_at = this.httpResponse.created_at;
       // this.sale_price = this.httpResponse.sale_detail.unit_price;
@@ -98,6 +103,8 @@ export class DetailDevicePage implements OnInit {
       this.module_polygonfence   = this.httpResponse.module_polygonfence;
       this.module_group          = this.httpResponse.module_group;
       this.module_fuel           = this.httpResponse.module_fuel;
+
+      this.loadingService.dismiss();
     });
   }
 
@@ -114,18 +121,14 @@ export class DetailDevicePage implements OnInit {
         item_id : this.httpResponse.id
       }
     });
-    popover.onDidDismiss().then(()=>{
-      this.navCtrl.navigateBack('list-device');
+    popover.onDidDismiss().then(res => {
+      console.log(res);
+      if(res.data == 'list-device')
+        this.navCtrl.navigateBack('list-device');
+      else if(res.data == 'update-device')
+        this.navCtrl.navigateForward('update-device/' + this.itemID);
     });
     return await popover.present();
-  }
-
-  async presentLoading() {
-    this.loading = await this.loadingController.create({
-      message: 'Please wait',
-      duration: 10000
-    });
-    await this.loading.present();
   }
 
 }

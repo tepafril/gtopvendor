@@ -28,6 +28,14 @@ export class DetailDeviceOptionComponent implements OnInit {
 
   ngOnInit() {}
 
+  block(){
+    this.popoverController.dismiss('list-device');
+  }
+
+  edit(){
+    this.popoverController.dismiss('update-device');
+  }
+
   async confirmDelete() {
     const alert = await this.alertController.create({
       header: 'Confirm Delete!',
@@ -57,7 +65,7 @@ export class DetailDeviceOptionComponent implements OnInit {
             }, ()=>{
               this.alertService.presentToast( "Device has been deleted." ,"success");
               this.loadingService.dismiss();
-              this.popoverController.dismiss();
+              this.popoverController.dismiss('list-device');
             });
           }
         }

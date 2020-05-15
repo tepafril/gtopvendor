@@ -5,7 +5,7 @@
         <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Detail Device</ion-title>
+    <ion-title>Device Detail</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="presentPopover($event)">
         <ion-icon name="ellipsis-vertical-outline"></ion-icon>
@@ -33,7 +33,7 @@
 
       <ion-item>
         <ion-label position="stacked">GPS-ACC-ID</ion-label>
-        <ion-input readonly>{{ gps_acc_id }}</ion-input>
+        <ion-input readonly>{{ imei }}</ion-input>
       </ion-item>
 
       <ion-item>
@@ -48,7 +48,7 @@
 
       <ion-item>
         <ion-label position="stacked">Plate Number</ion-label>
-        <ion-input readonly>{{ plate_number }}</ion-input>
+        <ion-input readonly>{{ plate }}</ion-input>
       </ion-item>
 
       <ion-item>

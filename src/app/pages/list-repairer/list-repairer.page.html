@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+
+    <ion-title>Staffs</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button routerLink="/create-staff">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-searchbar 
+            [(ngModel)]="query" 
+            inputmode="numeric" 
+            type="tel"
+            showCancelButton="always" 
+            debounce="1000" 
+            (ionChange)="onChange()">
+      </ion-searchbar>
+    </ion-item>
+
+    <ion-item-group *ngFor="let user of dataList">
+    
+      <ion-item detail routerLink="/detail-staff/{{user.id}}">
+        <ion-label>
+          <h2>{{ user.name }}</h2>
+          <ion-text color="success"><p>{{ user.phone }}</p></ion-text>
+        </ion-label>
+        <ion-note slot="end">{{ user.created_diff }}</ion-note>
+      </ion-item>
+      
+    </ion-item-group>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>

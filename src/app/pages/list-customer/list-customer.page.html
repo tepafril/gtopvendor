@@ -4,10 +4,52 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     
-    <ion-title>ListCustomer</ion-title>
+    <ion-title>List Customer</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="scan()">
+        <ion-icon name="barcode-outline"></ion-icon>
+      </ion-button>
+
+      <ion-button routerLink="/create-device/0">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-searchbar 
+            [(ngModel)]="query" 
+            inputmode="numeric" 
+            type="tel"
+            showCancelButton="always" 
+            debounce="1000" 
+            (ionChange)="onChange()">
+      </ion-searchbar>
+    </ion-item>
+
+    <ion-item-group *ngFor="let item of dataList">
+    
+      <ion-item detail routerLink="/detail-device/{{item.id}}">
+        <ion-label>
+          <h2>{{ item.imei }}</h2>
+          <ion-text color="success"><p>{{ item.phone }}</p></ion-text>
+        </ion-label>
+        <ion-note class="{{ item.imei }}" slot="end">{{ item.created_diff }}</ion-note>
+      </ion-item>
+      
+    </ion-item-group>
+  </ion-list>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="Loading...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

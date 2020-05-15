@@ -1,0 +1,37 @@
+{
+  "APP": {
+    "back":                               "ត្រលប់ក្រោយ",
+    "login":                              "ចូលក្នុង",
+    "register":                           "ចុះឈ្មោះ",
+    "forgot_password":                    "ភ្លេចពាក្យសំងាត់?",
+    "password":                           "ពាក្យសំងាត់",
+    "confirm_password":                   "បញ្ជាក់ពាក្យសំងាត់",
+    "phone_number":                       "លេខទូរស័ព្ទ",
+    "submit":                             "បញ្ចូន",
+    "otp_number":                         "លេខសំងាត់ OTP",
+    "enter_otp":                          "លោកអ្នកនឹងទទួលបានសារ(SMS) មួយដែលមានលេខ 6ខ្ទង់។ សូមបញ្ចូលលេខនោះក្នុងប្រអប់ខាងក្រោម",
+    "internet_not_work":                  "អ៉ីនធើណែតទូរស័ព្ទលោកអ្នកមិនដំណើរការនោះទេ! សូមរកកន្លែងមានសេវាឬភ្ជាប់ WiFi ដែលនៅជិតលោកអ្នក។",
+    "please_validate_phone":              "សូមបំពេញលេខទូរស័ព្ទអោយបានត្រឹមត្រូវ",
+    "please_try_again":                   "សូមព្យាយាមម្តងទៀត",
+    "password_must_be_greater_than_6":    "ពាក្យសំងាត់ត្រូវមានចំនួន6ខ្ទង់ឡើងទៅ",
+    "password_does_not_match":            "ពាក្យសំងាត់សម្រាប់ផ្ទៀងផ្ទាត់មិនដូចគ្នាទេ",
+    "choose_language":                    "ជ្រើសរើសភាសា",
+    "flag":                               "assets/img/flag-zh.jpg",
+    "ignitionOff":                        "Engine Off",
+    "ignitionOn":                         "Engine On"
+  },
+  "LANDING_PAGE": {
+  },
+  "LOGIN_PAGE": {
+    "enter_phone_password":               "សូមវាយបញ្ចូលលេខទូរស័ព្ទនិងពាក្យសំងាត់ដើម្បីចូលក្នុងកម្មវិធី",
+    "login_into_app":                     "ចូលក្នុងកម្មវិធី"
+  },
+  "REGISTER_PAGE": {
+    "enter_phone":                        "សូមវាយបញ្ចូលលេខទូរស័ព្ទលោកអ្នកដើម្បីចុះឈ្មោះប្រើប្រាស់កម្មវិធីនេះ",
+    "register_new_phone":                 "ចុះឈ្មោះថ្មី"
+  },
+  "FORGOT_PASSWORD_PAGE": {
+    "enter_phone_to_reset_password":      "សូមវាយបញ្ចូលលេខទូរស័ព្ទដែលលោកអ្នកធ្លាប់បានចុះឈ្មោះជាមួយក្រុមហ៊ុនយើងខ្ញុំ",
+    "enter_phone_new_password":           "សូមវាយបញ្ចូលពាក្យសំងាត់ថ្មីរបស់លោកអ្នក"
+  }
+}

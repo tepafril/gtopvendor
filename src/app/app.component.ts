@@ -4,6 +4,11 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { AlertService } from './services/alert.service';
+import { AuthService } from './services/auth.service';
+
+import { NavController } from '@ionic/angular';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -18,41 +23,114 @@ export class AppComponent implements OnInit {
       icon: 'location'
     },
     {
-      title: 'Customers',
-      url: 'list-customer',
-      icon: 'person'
-    },
-    {
-      title: 'Vendors',
-      url: 'list-vendor',
+      title: 'Staffs',
+      url: 'list-repairer',
       icon: 'build'
     },
+    // {
+    //   title: 'Customers',
+    //   url: 'list-customer',
+    //   icon: 'people'
+    // },
+    // {
+    //   title: 'Vendors',
+    //   url: 'list-vendor',
+    //   icon: 'person'
+    // },
     {
       title: 'Reports',
       url: 'report',
       icon: 'reader'
+    },
+    {
+      title: 'Logout',
+      icon: 'log-out',
+      url:  'logout'
     }
   ];
+
+  httpResponse;
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private authService: AuthService,
+    private alertService: AlertService,
+    private navController: NavController
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      alert("asdf");
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.authService.getRoles().then(()=>{
+        if(this.authService.roles["isOwner"]){
+          this.appPages = [
+            {
+              title: 'Devices',
+              url: 'list-device',
+              icon: 'location'
+            },
+            {
+              title: 'Staffs',
+              url: 'list-repairer',
+              icon: 'build'
+            },
+            {
+              title: 'Reports',
+              url: 'report',
+              icon: 'reader'
+            },
+            {
+              title: 'Logout',
+              icon: 'log-out',
+              url:  'logout'
+            }];
+        }
+        else{
+          this.appPages = [
+            {
+              title: 'Devices',
+              url: 'list-device',
+              icon: 'location'
+            },
+            {
+              title: 'Reports',
+              url: 'report',
+              icon: 'reader'
+            },
+            {
+              title: 'Logout',
+              icon: 'log-out',
+              url:  'logout'
+            }];
+        }
+      })
     });
   }
 
   ngOnInit() {
-    const path = window.location.pathname.split('folder/')[1];
-    if (path !== undefined) {
-      this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
-    }
+  }
+
+  logout() {
+    this.authService.logout().subscribe(
+      data => {
+        this.httpResponse = data;
+      }, err => {
+        if( err.error.message ){
+          this.alertService.presentToast( err.error.message ,"danger");
+        }
+        else{
+          this.alertService.presentToast( err.message ,"danger");
+        }
+      }, () => {
+        this.alertService.presentToast( this.httpResponse.message ,"danger");
+        this.navController.navigateRoot('landing');
+      }
+    );
   }
 }

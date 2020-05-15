@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { LoadingController, NavController } from '@ionic/angular';
+import { NavController, MenuController } from '@ionic/angular';
 import { AlertService } from '../../services/alert.service';
 import { HttpService } from '../../services/http.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-list-device',
@@ -13,19 +15,24 @@ export class ListDevicePage implements OnInit {
 
   constructor( 
     private navCtrl: NavController, 
-    public loadingController: LoadingController,
     private alertService: AlertService,
     private httpService: HttpService,
-    private barcodeScanner: BarcodeScanner
+    private barcodeScanner: BarcodeScanner,
+    private loadingService: LoadingService,
+    private menuController: MenuController
   ) {
   }
 
   ngOnInit() {
-    
+    this.menuController.enable(true);
   }
 
   ionViewDidEnter(){
     this.initIgnitionQuery();
+  }
+
+  ionViewDidLeave(){
+    this.dataList = [];
   }
 
   httpResponse;
@@ -37,6 +44,7 @@ export class ListDevicePage implements OnInit {
 
   initIgnitionQuery()
   {
+    this.loadingService.present();
     if(this.infiniteScrollEvent != null)
       this.infiniteScrollEvent.target.disabled = false;
     this.dataList = [];
@@ -52,6 +60,7 @@ export class ListDevicePage implements OnInit {
       else{
         this.alertService.presentToast( err.message ,"danger");
       }
+      this.loadingService.dismiss();
     }, ()=>{
       for( let i = 0; i < this.httpResponse.length; i++ ){
         if( this.httpResponse[i].owner == null ){
@@ -63,7 +72,7 @@ export class ListDevicePage implements OnInit {
         this.dataList.push(this.httpResponse[i]);
       }
       this.pagination ++;
-      
+      this.loadingService.dismiss();
     });
   }
 
@@ -108,7 +117,8 @@ export class ListDevicePage implements OnInit {
     this.barcodeScanner.scan().then(barcodeData => {
       // console.log('Barcode data', barcodeData);
       // alert(barcodeData.text);
-      this.navCtrl.navigateForward('create-device/'+barcodeData.text);
+      if( barcodeData.text != '' )
+        this.navCtrl.navigateForward('create-device/'+barcodeData.text);
      }).catch(err => {
          console.log('Error', err);
      });
