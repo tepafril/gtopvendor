@@ -84,10 +84,7 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-<<<<<<< HEAD
     
-=======
->>>>>>> 14ce31b67f88bcda2c151957b33122d387283434
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

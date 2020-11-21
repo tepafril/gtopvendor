@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
 import { ActivatedRoute } from '@angular/router';
 import { NavController } from "@ionic/angular";
 
-=======
-import { NavController, PopoverController, AlertController, NavParams }  from "@ionic/angular";
->>>>>>> 14ce31b67f88bcda2c151957b33122d387283434
 
 import { LoadingService } from '../../services/loading.service';
 import { AlertService } from '../../services/alert.service';
