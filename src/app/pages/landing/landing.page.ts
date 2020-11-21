@@ -48,7 +48,9 @@ export class LandingPage implements OnInit {
   }
 
   ngOnInit() {
-    this.menuController.enable(false);
+    // this.menuController.enable(false);
+    this.menuController.enable(false,"owners");
+    this.menuController.enable(false,"staffs");
   }
 
   async login() {
