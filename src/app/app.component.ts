@@ -7,7 +7,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AlertService } from './services/alert.service';
 import { AuthService } from './services/auth.service';
 
-import { NavController } from '@ionic/angular';
+import { NavController, MenuController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ import { NavController } from '@ionic/angular';
 })
 export class AppComponent implements OnInit {
   public selectedIndex = 0;
-  public appPages = [
+  public ownerMenu = [
     {
       title: 'Devices',
       url: 'list-device',
@@ -32,11 +33,29 @@ export class AppComponent implements OnInit {
     //   url: 'list-customer',
     //   icon: 'people'
     // },
-    // {
-    //   title: 'Vendors',
-    //   url: 'list-vendor',
-    //   icon: 'person'
-    // },
+    {
+      title: 'Vendors',
+      url: 'list-vendor',
+      icon: 'person'
+    },
+    {
+      title: 'Reports',
+      url: 'report',
+      icon: 'reader'
+    },
+    {
+      title: 'Logout',
+      icon: 'log-out',
+      url:  'logout'
+    }
+  ];
+
+  public staffMenu = [
+    {
+      title: 'Devices',
+      url: 'list-device',
+      icon: 'location'
+    },
     {
       title: 'Reports',
       url: 'report',
@@ -57,59 +76,16 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private authService: AuthService,
     private alertService: AlertService,
-    private navController: NavController
+    private navController: NavController,
+    private menuController: MenuController
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      alert("asdf");
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.authService.getRoles().then(()=>{
-        if(this.authService.roles["isOwner"]){
-          this.appPages = [
-            {
-              title: 'Devices',
-              url: 'list-device',
-              icon: 'location'
-            },
-            {
-              title: 'Staffs',
-              url: 'list-repairer',
-              icon: 'build'
-            },
-            {
-              title: 'Reports',
-              url: 'report',
-              icon: 'reader'
-            },
-            {
-              title: 'Logout',
-              icon: 'log-out',
-              url:  'logout'
-            }];
-        }
-        else{
-          this.appPages = [
-            {
-              title: 'Devices',
-              url: 'list-device',
-              icon: 'location'
-            },
-            {
-              title: 'Reports',
-              url: 'report',
-              icon: 'reader'
-            },
-            {
-              title: 'Logout',
-              icon: 'log-out',
-              url:  'logout'
-            }];
-        }
-      })
     });
   }
 

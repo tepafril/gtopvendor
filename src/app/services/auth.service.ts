@@ -42,22 +42,6 @@ export class AuthService {
           expires_at: response["expires_at"],
         };
 
-        let roles = {
-          isOwner   : response["is_owner"],
-          isStaff   : response["is_staff"],
-          isVendor   : response["is_vendor"],
-        };
-
-        Storage.set({
-          key     : 'roles', 
-          value   : JSON.stringify(roles)
-        }).then(
-          () => {
-            console.log('Token Stored');
-          },
-          error => console.error('Error storing item', error)
-        );
-
         Storage.set({
           key     : 'token', 
           value   : JSON.stringify(token)
@@ -81,9 +65,7 @@ export class AuthService {
         this.token = token;
         this.isLoggedIn = true;
 
-        this.roles["isOwner"]  = response["is_owner"];
-        this.roles["isStaff"]  = response["is_staff"];
-        this.roles["isVendor"]  = response["is_vendor"];
+        this.saveRole( this.user.roles );
         return token;
       }),
     );
@@ -105,9 +87,6 @@ export class AuthService {
           error => console.error('Error storing item', error)
         );
         this.isLoggedIn = false;
-        this.is_owner   = false;
-        this.is_staff   = false;
-        this.is_vendor  = false;
         delete this.token;
         return data;
       })
@@ -146,13 +125,16 @@ export class AuthService {
       key     : 'roles'
     }).then(
       data => {
-        if(data.value != null) {
+        if(data.value != null)
+        {
           this.isLoggedIn=true;
           let res = JSON.parse(data.value);
-          this.roles["isOwner"]  = res.is_owner;
-          this.roles["isStaff"]  = res.is_staff;
-          this.roles["isVendor"]  = res.is_vendor;
-        } else {
+          this.roles.isOwner  = res.isOwner;
+          this.roles.isStaff  = res.isStaff;
+          this.roles.isVendor  = res.isVendor;
+        }
+        else
+        {
           this.isLoggedIn=false;
         }
         // this.isVerified = this.token["is_verified"];
@@ -231,7 +213,6 @@ export class AuthService {
   }
 
   checkPassport(){
-    console.log(this.token);
     const headers = new HttpHeaders({
       'Authorization': this.token["token_type"]+" "+this.token["access_token"]
     });
@@ -245,13 +226,47 @@ export class AuthService {
         }).then(
           () => {
             this.user = user["user"];
+            this.saveRole( this.user.roles );
           },
           error => console.error('Error storing item', error)
         );
-
         return res;
       })
     )
+  }
+
+  private saveRole( roleRes ){
+    this.roles.isOwner = false;
+    this.roles.isStaff = false;
+    this.roles.isVendor = false;
+    for( let i = 0; i< roleRes.length; i++ )
+    {
+      let role = roleRes[0].slug;
+      switch(role)
+      {
+        case "owners":
+          this.roles.isOwner = true;
+          break;
+        case "staffs":
+          this.roles.isStaff = true;
+          break;
+        case "vendors":
+          this.roles.isVendor = true;
+          break;
+      }
+    }
+
+
+    Storage.set({
+      key     : 'roles', 
+      value   : JSON.stringify(this.roles)
+    }).then(
+      () => {
+        console.log('Token Stored');
+      },
+      error => console.error('Error storing item', error)
+    );
+
   }
 
 

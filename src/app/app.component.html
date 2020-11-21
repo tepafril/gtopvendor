@@ -1,12 +1,33 @@
 <ion-app>
   <ion-split-pane contentId="main-content">
-    <ion-menu contentId="main-content" type="overlay">
+    <ion-menu contentId="main-content" type="overlay" menuId="owners">
       <ion-content>
         <ion-list id="inbox-list">
           <ion-list-header>GTOP Cambodia</ion-list-header>
-          <ion-note>App for Vendor</ion-note>
+          <ion-note>App for Owner</ion-note>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of ownerMenu; let i = index">
+            <ion-item *ngIf="[p.url] != 'logout'" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false">
+              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+
+            <ion-item *ngIf="[p.url] == 'logout'" (click)="logout()" routerDirection="root" lines="none" detail="false" button>
+              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+
+      </ion-content>
+    </ion-menu>
+    <ion-menu contentId="main-content" type="overlay" menuId="staffs">
+      <ion-content>
+        <ion-list id="inbox-list">
+          <ion-list-header>GTOP Cambodia</ion-list-header>
+          <ion-note>App for Staff</ion-note>
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of staffMenu; let i = index">
             <ion-item *ngIf="[p.url] != 'logout'" routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false">
               <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
               <ion-label>{{ p.title }}</ion-label>

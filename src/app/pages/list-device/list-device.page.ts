@@ -5,6 +5,7 @@ import { HttpService } from '../../services/http.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 import { LoadingService } from '../../services/loading.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-list-device',
@@ -19,12 +20,25 @@ export class ListDevicePage implements OnInit {
     private httpService: HttpService,
     private barcodeScanner: BarcodeScanner,
     private loadingService: LoadingService,
-    private menuController: MenuController
+    private menuController: MenuController,
+    private authService:    AuthService,
   ) {
   }
 
   ngOnInit() {
-    this.menuController.enable(true);
+    this.authService.getRoles().then(()=>{
+      console.log( this.authService.roles );
+      if(this.authService.roles.isOwner){
+        this.menuController.enable(true,"owners");
+      }
+      else if(this.authService.roles.isStaff){
+        this.menuController.enable(true,"staffs");
+      }
+      else if(this.authService.roles.isVendor){
+        this.menuController.enable(true,"staffs");
+      }
+      console.log(this.authService.roles);
+    })
   }
 
   ionViewDidEnter(){

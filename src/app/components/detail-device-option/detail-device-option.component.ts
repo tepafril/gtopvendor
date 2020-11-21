@@ -5,6 +5,9 @@ import { LoadingService } from '../../services/loading.service';
 import { AlertService } from '../../services/alert.service';
 import { HttpService } from '../../services/http.service';
 
+import { Router } from '@angular/router';
+
+
 @Component({
   selector: 'app-detail-device-option',
   templateUrl: './detail-device-option.component.html',
@@ -21,6 +24,7 @@ export class DetailDeviceOptionComponent implements OnInit {
     public loadingService: LoadingService,
     public alertService: AlertService,
     public httpService: HttpService,
+    public router: Router,
   ) {
     this.item_id = this.navParams.get('item_id');
     console.log(this.item_id);
@@ -34,6 +38,12 @@ export class DetailDeviceOptionComponent implements OnInit {
 
   edit(){
     this.popoverController.dismiss('update-device');
+  }
+
+  async resetPassword()
+  {
+    this.router.navigateByUrl("reset-password/"+this.item_id);
+    await this.popoverController.dismiss();
   }
 
   async confirmDelete() {
