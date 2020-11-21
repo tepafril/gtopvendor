@@ -105,9 +105,9 @@ export class AuthService {
           error => console.error('Error storing item', error)
         );
         this.isLoggedIn = false;
-        this.is_owner   = false;
-        this.is_staff   = false;
-        this.is_vendor  = false;
+        // this.is_owner   = false;
+        // this.is_staff   = false;
+        // this.is_vendor  = false;
         delete this.token;
         return data;
       })

@@ -36,6 +36,10 @@ export class DetailDeviceOptionComponent implements OnInit {
     this.popoverController.dismiss('update-device');
   }
 
+  resetPassword(){
+    this.popoverController.dismiss('reset-password');
+  }
+
   async confirmDelete() {
     const alert = await this.alertController.create({
       header: 'Confirm Delete!',

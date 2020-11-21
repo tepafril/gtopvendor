@@ -125,8 +125,10 @@ export class DetailDevicePage implements OnInit {
       console.log(res);
       if(res.data == 'list-device')
         this.navCtrl.navigateBack('list-device');
-      else if(res.data == 'update-device')
-        this.navCtrl.navigateForward('update-device/' + this.itemID);
+        else if(res.data == 'update-device')
+          this.navCtrl.navigateForward('update-device/' + this.itemID);
+        else if(res.data == 'reset-password')
+          this.navCtrl.navigateForward('reset-password/' + this.itemID);
     });
     return await popover.present();
   }

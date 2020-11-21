@@ -45,6 +45,19 @@ export class HttpService {
       )
   }
 
+  resetPassword(params){
+    const headers = new HttpHeaders({
+      'Authorization': this.authService.token["token_type"]+" "+this.authService.token["access_token"]
+    });
+    
+      return this.http.put(ENDPOINT.API_URL + 'vendors/device/reset-password', params, { headers: headers })
+      .pipe(
+        tap(devices => {
+          return devices;
+        })
+      )
+  }
+
   deleteDevice(id) {
     const headers = new HttpHeaders({
       'Authorization': this.authService.token["token_type"]+" "+this.authService.token["access_token"]

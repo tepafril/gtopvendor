@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      alert("asdf");
+    
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.authService.getRoles().then(()=>{
